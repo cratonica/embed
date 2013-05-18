@@ -7,6 +7,10 @@ The data is gzipped to save space.
 
 An external tool for generating output files can be found [here](http://github.com/cratonica/embedder)
 
+View the full documentation [here](http://godoc.org/github.com/cratonica/embed)
+
+Example
+-------
     // Create a resource map from files in a directory
     resourceMap, _ := embed.CreateFromFiles("/www/js")
     
@@ -33,4 +37,3 @@ An external tool for generating output files can be found [here](http://github.c
     // Use the embedded file data
     fmt.Print(jquery)
 
-View the full documentation [here](http://godoc.org/github.com/cratonica/embed)
