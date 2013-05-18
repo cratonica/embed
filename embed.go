@@ -36,7 +36,7 @@ type PackedResourceMap []byte
 var byteOrder binary.ByteOrder = binary.LittleEndian
 
 // Packs the map of resource identifiers => []byte into
-// a buffer. This process is revered by calling Unpack.
+// a buffer. This process is reversed by calling Unpack.
 func Pack(data ResourceMap) (PackedResourceMap, error) {
 	var buf bytes.Buffer
 	writer, err := gzip.NewWriterLevel(&buf, gzip.BestCompression)
