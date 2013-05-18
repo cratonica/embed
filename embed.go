@@ -128,7 +128,9 @@ func GenerateGoCode(packageName string, varName string, data PackedResourceMap) 
 	template := `
 package %v
 
-var %v PackedResourceMap = %#v
+import "github.com/cratonica/embed"
+
+var %v embed.PackedResourceMap = %#v
 `
 	return fmt.Sprintf(template, packageName, varName, data)
 }
