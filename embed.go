@@ -82,9 +82,7 @@ func Unpack(data PackedResourceMap) (ResourceMap, error) {
 	result := make(map[string][]byte)
 	buf := bytes.NewBuffer(data)
 	reader, err := gzip.NewReader(buf)
-	defer func() {
-		reader.Close()
-	}()
+	defer reader.Close()
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +90,10 @@ func Unpack(data PackedResourceMap) (ResourceMap, error) {
 		var size int32
 		err := binary.Read(reader, byteOrder, &size)
 		if err != nil {
-			break // EOF
+			if err == io.EOF {
+				break
+			}
+			return nil, err
 		}
 		keyBuf, err := readAll(reader, int(size))
 		if err != nil {
