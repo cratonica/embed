@@ -24,6 +24,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 )
 
@@ -43,7 +44,15 @@ func Pack(data ResourceMap) (PackedResourceMap, error) {
 	if err != nil {
 		return nil, err
 	}
-	for i, v := range data {
+	keys := make([]string, len(data))
+	idx := 0
+	for key := range data {
+		keys[idx] = key
+		idx++
+	}
+	sort.Strings(keys)
+	for _, i := range keys {
+		v := data[i]
 		if err = binary.Write(writer, byteOrder, int32(len(i))); err != nil {
 			return nil, err
 		}
