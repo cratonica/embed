@@ -151,7 +151,11 @@ func readAll(reader io.Reader, size int) ([]byte, error) {
 	for totalBytes < size {
 		readSize, err := reader.Read(result[totalBytes:])
 		if err != nil {
-			return nil, err
+			if err == io.EOF && totalBytes+readSize == size {
+				return result, nil 
+			} else {
+				return nil, err 
+			}
 		}
 		totalBytes += readSize
 	}
